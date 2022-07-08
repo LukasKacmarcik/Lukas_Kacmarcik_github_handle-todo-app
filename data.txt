@@ -1,4 +1,5 @@
-Buy milk
-Fix car
-Sleep
-Walk
+[ ] Clean car
+[ ] Buy milk
+[x] Sleep
+[ ] Cook something delicious
+[ ] Drink some vine

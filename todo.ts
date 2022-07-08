@@ -1,4 +1,4 @@
-const args: string[] = process.argv.slice(2);
+const args: any[] = process.argv.slice(2);
 import { Storage } from "./storage";
 import { writeToFile } from "./storage";
 import { readFromFile } from "./storage";
@@ -17,10 +17,10 @@ switch(args[0]) {
     break;
     
   case '-r':
-    
+    Storage.remove(args[1]);
     break;
 
   case '-c':
-    
+    Storage.complete(args[1])
     break;
 }

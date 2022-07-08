@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { Task } from './task';
 export function readFromFile(): string {
   return fs.readFileSync('./data.txt', 'utf-8');
 }
@@ -9,15 +10,42 @@ export function writeToFile(stringToWrite:string): void {
 export class Storage {
 
   static list() {
-    console.log(readFromFile());
+    let originalInArr = readFromFile().split('\n');
+    let line = 1;
+    originalInArr.forEach(function(task) {
+      console.log(`${line} ${task}`);
+      line++;
+    });
   };
-
+/////ADD
   static add(taskToAdd: string) {
     let soFar = readFromFile();
-    writeToFile(`${soFar}\n${taskToAdd}`)
+    let numOfLIne = 0;
+    if (soFar.length < 1) {
+      numOfLIne = soFar.split('\n').length;
+    } else {
+      numOfLIne = soFar.split('\n').length + 1;
+    }
+    if(readFromFile().length < 1) {
+      writeToFile(`[ ] ${taskToAdd}`)
+    } else {
+      writeToFile(`${soFar}\n[ ] ${taskToAdd}`);
+    }
   };
-
-  static remove(taskToRemove: string) {};
-
-  static complete(taskToComplete: string) {};
+//////REMOVE
+  static remove(taskToRemove: number) {
+    let original: string[] = readFromFile().split('\n');
+    original.splice(taskToRemove - 1,1);
+    let sendBack = original.join('\n');
+    writeToFile(sendBack);
+  };
+//////COMPLETE
+  static complete(taskToComplete: number) {
+    let original: string[] = readFromFile().split('\n');
+    let mutating = original[taskToComplete - 1];
+    mutating = mutating.replace('[ ]','[x]');
+    original.splice(taskToComplete - 1, 1, mutating);
+    let toSend = original.join('\n');
+    writeToFile(toSend);
+  };
 }
