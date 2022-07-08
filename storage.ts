@@ -18,7 +18,7 @@ export class Storage {
     });
   };
 /////ADD
-  static add(taskToAdd: string) {
+  static add(taskToAdd: string|number) {
     let soFar = readFromFile();
     let numOfLIne = 0;
     if (soFar.length < 1) {
@@ -35,6 +35,9 @@ export class Storage {
 //////REMOVE
   static remove(taskToRemove: number) {
     let original: string[] = readFromFile().split('\n');
+    if(original[taskToRemove] === undefined) {
+      return console.log('Unable to remove: index is out of bound');
+    }
     original.splice(taskToRemove - 1,1);
     let sendBack = original.join('\n');
     writeToFile(sendBack);
@@ -42,6 +45,9 @@ export class Storage {
 //////COMPLETE
   static complete(taskToComplete: number) {
     let original: string[] = readFromFile().split('\n');
+    if(original[taskToComplete] === undefined) {
+      return console.log('Unable to check: index is out of bound');
+    }
     let mutating = original[taskToComplete - 1];
     mutating = mutating.replace('[ ]','[x]');
     original.splice(taskToComplete - 1, 1, mutating);

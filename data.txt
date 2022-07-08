@@ -1,5 +1,5 @@
-[ ] Clean car
 [ ] Buy milk
 [x] Sleep
-[ ] Cook something delicious
+[x] Cook something delicious
 [ ] Drink some vine
+[ ] Fix car
